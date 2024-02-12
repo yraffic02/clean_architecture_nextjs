@@ -1,4 +1,5 @@
 export type CarProps = {
+    id?: number
     brand: string,
     model: string,
     year: number
