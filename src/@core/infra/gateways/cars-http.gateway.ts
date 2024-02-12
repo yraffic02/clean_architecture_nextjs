@@ -9,10 +9,9 @@ export class CarHttpGateway implements CarGateway{
     async findAll(): Promise<Car[]> {
         try {
             const {data} = await this.http.get<Car[]>('/cars');
-            const cars = data.map((car)=> new Car(car).toJson())
-            const carsJsonSting = JSON.stringify(cars)
-            const carsJsonObj = JSON.parse(carsJsonSting) 
-            return carsJsonObj;
+            const cars = data.map((car)=> new Car(car))
+         
+            return cars;
         } catch (error) {
             console.error("Erro ao buscar datas:", error);
             throw error;
