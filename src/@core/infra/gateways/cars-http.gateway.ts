@@ -54,7 +54,7 @@ export class CarHttpGateway implements CarGateway{
             const {data} = await this.http.delete<boolean>(`/cars/${id}`)
             return data;
         } catch (error) {
-            console.error("Erro ao buscar datas:", error);
+             console.error("Erro ao buscar datas:", error);
             throw error;
         }
     }
