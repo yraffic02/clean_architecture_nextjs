@@ -1,18 +1,28 @@
 'use client'
 
 import { Input } from "@/components/Input"
+import { Label } from "@/components/Label"
 
 export const FormCars = () =>{
     return (
         <form className="flex flex-col justify-start w-2/6 p-7 gap-4">
-                <Input 
-                    placeholder="Marca"
+                <Label labelHtmlFor="brand">
+                    Marca
+                </Label>
+                <Input
+                    id="brand" 
                 />
+                <Label labelHtmlFor="model">
+                    Modelo
+                </Label>
                 <Input 
-                    placeholder="Modelo"
+                    id="model"
                 />
+                <Label labelHtmlFor="year">
+                    Ano
+                </Label>
                 <Input 
-                    placeholder="Ano"
+                    id="year"
                 />
                 <button type="submit">Cadastrar</button>
         </form>
