@@ -1,11 +1,10 @@
 import { Car } from "@/@core/domain/entities/car";
 import { CarGateway } from "@/@core/domain/gateways/car.gateway";
 
-
-export class ListCarsUseCase {
+export class GetCarUseCase {
     constructor(private CarGate: CarGateway){}
 
-    async execute(): Promise<Car[]>{
-        return this.CarGate.findAll();
+    async execute(id: string): Promise<Car>{
+        return this.CarGate.findById(id)
     }
 }
