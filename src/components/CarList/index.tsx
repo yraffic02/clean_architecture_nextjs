@@ -1,31 +1,11 @@
-'use client'
-import { useEffect, useState } from "react"
+import { Car } from "@/@core/domain/entities/car"
 
-type car = {
-  id: number,
-  marca: string
+type CardListProps = {
+  cars: Car[]
 }
 
-export const CarList = () =>{
-    const [list, setList] = useState<car[]>([])
-
-  const cars: car[] = [
-    {id: 1, marca: 'fiat'},
-    {id: 2, marca: 'chevrolet'}
-  ]
-
-  const handleGetList = () =>{
-    setList(cars)
-  }
-
-  const handleDelete = (id: number) => {
-    const listRemoved = list.filter( i => i.id != id)
-    setList(listRemoved)
-  }
-
-  useEffect(()=>{
-    handleGetList()
-  },[])
+export const CarList = ({cars}: CardListProps) =>{
+  
     return (
         <div className="flex flex-col items-start gap-2 border-red-700 border-2 rounded-md p-3 w-2/5  h-96">
         <div className="flex items-start gap-6 w-full">
@@ -35,15 +15,15 @@ export const CarList = () =>{
         </div>
         <ul>
           {
-            list.length <= 0 && <h1>Não há carros registrados!!</h1>
+            cars.length <= 0 && <h1>Não há carros registrados!!</h1>
           }
           {
-            list.length > 0 && list.map((item, index)=>{
+            cars.length > 0 && cars.map((item, index)=>{
               return (
                 <div className="flex items-start gap-6 w-full">
-                  <li key={item.id} >{item.marca} </li>
+                  <li key={index} >{item.carProps.brand} | {item.carProps.model}</li>
                   <button>editar</button>
-                  <button onClick={()=> handleDelete(item.id)}>apagar</button>
+                  <button>apagar</button>
                 </div>
               )
             })
