@@ -9,7 +9,9 @@ export const Registry = {
 
     CarGateway: Symbol.for("CarGateway"),
     ListCarUseCase: Symbol.for("ListCarUseCase"),
-    GetCarUseCase: Symbol.for("GetCarUseCase")
+    GetCarUseCase: Symbol.for("GetCarUseCase"),
+    AddCarUseCase: Symbol.for("AddCarUseCase"),
+
 }
 
 export const container = new Container;
