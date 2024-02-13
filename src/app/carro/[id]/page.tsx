@@ -10,9 +10,7 @@ async function getCar(id:string) {
 }
 
 export default async function CarDetailPage({ params }: { params: { id: string } }){
-    const car = await getCar(params.id)    
-    console.log(car)
-
+    const car = await getCar(params.id)
 
     return(
         <div className="p-6 flex flex-col gap-6">
