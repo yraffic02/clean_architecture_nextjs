@@ -6,5 +6,5 @@ export interface CarGateway {
     findById(id: string): Promise<Car>; 
     add(car: CarProps): Promise<Car>;
     update(id: string, car: CarProps): Promise<Car>; 
-    delete(id: string): Promise<boolean>;
+    delete(id: string): Promise<Number>;
 }

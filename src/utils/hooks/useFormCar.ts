@@ -1,10 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { CarFormType, CarScheme } from "../schema/carSchema";
-import { toast } from "react-toastify";
+import { AddCarUseCase } from "@/@core/application/car/add-car.use-case";
 import { Car } from "@/@core/domain/entities/car";
 import { Registry, container } from "@/@core/infra/container/container-registry.api-local";
-import { AddCarUseCase } from "@/@core/application/car/add-car.use-case";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { CarFormType, CarScheme } from "../schema/carSchema";
 
 
 export const UseHookFormCar = () =>{

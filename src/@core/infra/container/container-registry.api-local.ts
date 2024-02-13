@@ -4,6 +4,7 @@ import { CarHttpGateway } from "../gateways/cars-http.gateway";
 import { ListCarsUseCase } from "@/@core/application/car/list-cars-use-case";
 import { GetCarUseCase } from "@/@core/application/car/get-car.use-case";
 import { AddCarUseCase } from "@/@core/application/car/add-car.use-case";
+import { DeleteCarUseCase } from "@/@core/application/car/delete-car.use-case";
 
 export const Registry = {
     AxiosAdapter: Symbol.for("AxiosAdapter"),
@@ -12,7 +13,7 @@ export const Registry = {
     ListCarUseCase: Symbol.for("ListCarUseCase"),
     GetCarUseCase: Symbol.for("GetCarUseCase"),
     AddCarUseCase: Symbol.for("AddCarUseCase"),
-
+    DeleteCarUseCase: Symbol.for("DeleteCarUseCase")
 }
 
 export const container = new Container;
@@ -33,4 +34,8 @@ container.bind(Registry.GetCarUseCase).toDynamicValue((context)=>{
 
 container.bind(Registry.AddCarUseCase).toDynamicValue((context)=>{
     return new AddCarUseCase(context.container.get(Registry.CarGateway))
+})
+
+container.bind(Registry.DeleteCarUseCase).toDynamicValue((context)=>{
+    return new DeleteCarUseCase(context.container.get(Registry.CarGateway))
 })

@@ -51,10 +51,10 @@ export class CarHttpGateway implements CarGateway{
         }
     }
 
-    async delete(id: string): Promise<boolean> {
+    async delete(id: string): Promise<Number>{
         try {
-            const {data} = await this.http.delete<boolean>(`/cars/${id}`)
-            return data;
+            const {status} = await this.http.delete<Number>(`/cars/${id}`)
+            return status;
         } catch (error) {
              console.error("Erro ao buscar datas:", error);
             throw error;
