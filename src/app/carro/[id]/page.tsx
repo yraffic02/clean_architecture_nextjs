@@ -12,6 +12,10 @@ async function getCar(id:string) {
 export default async function CarDetailPage({ params }: { params: { id: string } }){
     const car = await getCar(params.id)
 
+    if(!car){
+        redirect('/carro/erro')
+    }
+
     return(
         <div className="p-6 flex flex-col gap-6">
             <h1>{car.carProps.brand}</h1>
