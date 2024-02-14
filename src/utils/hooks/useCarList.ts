@@ -31,6 +31,7 @@ export const useCarList = () =>{
     }
 
     const handleDeleteCar = async (id: string) =>{
+      try {
         const DeleteCarUseCase = container.get<DeleteCarUseCase>(Registry.DeleteCarUseCase)
         const res = await DeleteCarUseCase.execute(id)
         
@@ -38,18 +39,26 @@ export const useCarList = () =>{
             handleDataCar()
             handleOpenCloseModalDelete(null)
         } 
+      } catch (error) {
+        console.error(error)
+      }   
     }
 
     const handleDataCar = async ()=> {
         setLoading(true)
-        const useCaseCar = container.get<ListCarsUseCase>(Registry.ListCarUseCase)
-        const cars = await useCaseCar.execute()
-        
-        const carsString = JSON.stringify(cars)
-        const carsObj = JSON.parse(carsString)
-        
-        setCarList(carsObj)
-        return setLoading(false)
+        try {
+          const useCaseCar = container.get<ListCarsUseCase>(Registry.ListCarUseCase)
+          const cars = await useCaseCar.execute()
+          
+          const carsString = JSON.stringify(cars)
+          const carsObj = JSON.parse(carsString)
+          
+          setCarList(carsObj)
+        } catch (error) {
+          console.error(error)
+        } finally {
+          setLoading(false)
+        }
       }
 
       const handleRouter = (path: string) =>{
@@ -57,42 +66,49 @@ export const useCarList = () =>{
       }
 
       const resolveDataEdit = async (id: string,car: Car) =>{
-        const updateUseCase = container.get<UpdateCarUseCase>(Registry.UpdateCarUseCase);
-        const carData = await updateUseCase.execute(id ,car)
-        return carData
+        try{
+          const updateUseCase = container.get<UpdateCarUseCase>(Registry.UpdateCarUseCase);
+          const carData = await updateUseCase.execute(id ,car)
+          return carData
+        } catch (error){
+          console.error(error)
+        }
       }
 
       const onSubmit: SubmitHandler<CarFormType> = async (data) => {
-
-        const dataObjUpdate = {
-          brand: data.brand,
-          model: data.model,
-          year: data.year
-        }
-
-        const res =  await toast.promise(
-            resolveDataEdit(data.id!, dataObjUpdate as Car),
-            {
-                pending: 'Promise is pending',
-                success: 'Promise resolved ',
-                error: 'Promise rejected '
-            },
-            {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            }
-        ) 
+        try {
+          const dataObjUpdate = {
+            brand: data.brand,
+            model: data.model,
+            year: data.year
+          }
   
-        if(res){
-            handleDataCar()
-            handleOpenCloseModalEdit(null)
-        } 
+          const res =  await toast.promise(
+              resolveDataEdit(data.id!, dataObjUpdate as Car),
+              {
+                  pending: 'Promise is pending',
+                  success: 'Promise resolved ',
+                  error: 'Promise rejected '
+              },
+              {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+              }
+          ) 
+    
+          if(res){
+              handleDataCar()
+              handleOpenCloseModalEdit(null)
+          } 
+        } catch (error) {
+          console.error(error)
+        }
       }
     
       useEffect(()=>{
