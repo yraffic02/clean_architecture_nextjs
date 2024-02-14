@@ -1,23 +1,19 @@
 'use client'
-import { Car } from "@/@core/domain/entities/car"
-import { useRouter } from "next/navigation"
-import { Modal } from "../Modal"
-import { useEffect, useState } from "react"
-import { Registry, container } from "@/@core/infra/container/container-registry.api-local"
-import { DeleteCarUseCase } from "@/@core/application/car/delete-car.use-case"
-import { ListCarsUseCase } from "@/@core/application/car/list-cars-use-case"
-import { Spinner } from "../Spinner"
 import { useCarList } from "@/utils/hooks/useCarList"
-
+import { Input } from "../Input"
+import { Modal } from "../Modal"
+import { Spinner } from "../Spinner"
 
 export const CarList = () =>{
   const {
     carList,
-    handleDeleteCar,
     handleOpenCloseModalDelete,
     loading,
-    push,
-    modalDelete
+    handleRouter,
+    handleOpenCloseModalEdit,
+    modalDelete,
+    handleDeleteCar,
+    modalEdit
   } = useCarList()
   
   return (
@@ -48,36 +44,66 @@ export const CarList = () =>{
                       <div className="flex justify-between gap-6 w-full">
                         <div 
                           className="flex items-center justify-between  w-2/4 cursor-pointer"
-                          onClick={()=> push(`/carro/${item.carProps.id}`)}
+                          onClick={()=> handleRouter(`/carro/${item.carProps.id}`)}
                         >
                           <p>{item.carProps.brand}</p>
                           <p>{item.carProps.model}</p> 
                           <p>{item.carProps.year}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                          <button>editar</button>
-                          <button onClick={handleOpenCloseModalDelete} >apagar</button>
+                          <button onClick={()=> handleOpenCloseModalEdit(index)}>editar</button>
+                          <button onClick={()=> handleOpenCloseModalDelete(index)} >apagar</button>
                         </div>
                       </div>
+                      <Modal
+                          isOpen={modalDelete === index}
+                          onClose={()=> handleOpenCloseModalDelete(null)}
+                          title="Tem certeza que deseja apagar este carro?"
+                      >
+                          <button
+                          onClick={()=> handleOpenCloseModalDelete(null)}
+                          className="mt-4 bg-red-500 text-white p-2 rounded"
+                          >
+                          Não
+                          </button>
+                          <button
+                          className="mt-4 bg-green-500 text-white p-2 rounded ml-6"
+                          onClick={()=> handleDeleteCar(item.carProps.id!)}
+                          >
+                          Sim
+                          </button>
+                      </Modal> 
                     </li>
+                    
                     <Modal
-                      isOpen={modalDelete}
-                      onClose={handleOpenCloseModalDelete}
-                      title="Tem certeza que deseja apagar este carro?"
+                        isOpen={modalEdit == index}
+                        onClose={()=> handleOpenCloseModalEdit(null)}
+                        title="Tem certeza que deseja apagar este carro?"
                     >
-                      <button
-                        onClick={handleOpenCloseModalDelete}
-                        className="mt-4 bg-red-500 text-white p-2 rounded"
-                      >
-                        Não
-                      </button>
-                      <button
-                        className="mt-4 bg-green-500 text-white p-2 rounded ml-6"
-                        onClick={()=> handleDeleteCar(String(item.carProps.id!))}
-                      >
-                        Sim
-                      </button>
-                    </Modal>
+                        <form className="flex flex-col w-full gap-3">
+                          <Input 
+                            defaultValue={item.carProps.brand}
+                          />
+                          <Input 
+                            defaultValue={item.carProps.model}
+                          />
+                          <Input 
+                            defaultValue={item.carProps.year}
+                          />
+                        </form>
+                        <button
+                            onClick={()=> handleOpenCloseModalEdit(null)}
+                            className="mt-4 bg-red-500 text-white p-2 rounded"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            className="mt-4 bg-green-500 text-white p-2 rounded ml-6"
+
+                        >
+                            Salvar
+                        </button>
+                    </Modal> 
                   </>
                 )
               })
