@@ -56,8 +56,18 @@ export const CarList = () =>{
                           <p className="w-1/3">{item.carProps.year}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                          <button onClick={()=> handleOpenCloseModalEdit(index)}>editar</button>
-                          <button onClick={()=> handleOpenCloseModalDelete(index)} >apagar</button>
+                          <button 
+                            onClick={()=> handleOpenCloseModalEdit(index)}
+                            className="bg-gray-500 text-white p-2 rounded" 
+                          >
+                            editar
+                          </button>
+                          <button 
+                            onClick={()=> handleOpenCloseModalDelete(index)}
+                            className="bg-red-500 text-white p-2 rounded" 
+                          >
+                            apagar
+                          </button>
                         </div>
                       </div>
                     </li>
