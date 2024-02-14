@@ -6,41 +6,19 @@ import { useEffect, useState } from "react"
 import { Registry, container } from "@/@core/infra/container/container-registry.api-local"
 import { DeleteCarUseCase } from "@/@core/application/car/delete-car.use-case"
 import { ListCarsUseCase } from "@/@core/application/car/list-cars-use-case"
+import { Spinner } from "../Spinner"
+import { useCarList } from "@/utils/hooks/useCarList"
 
 
 export const CarList = () =>{
-  const [carList, setCarList] = useState<Car[]>([])
-  const [loading, setLoading] = useState<false>(false)
-  const {push} = useRouter()
-  const [modalDelete, setModalDelete] = useState<boolean>(false)
-
-  const handleOpenCloseModalDelete = () =>{
-    setModalDelete(!modalDelete)
-  }
-
-  const handleDeleteCar = async (id: string) =>{
-    const DeleteCarUseCase = container.get<DeleteCarUseCase>(Registry.DeleteCarUseCase)
-    const res = await DeleteCarUseCase.execute(id)
-
-    console.log(res)
-    if(res === 204){
-      handleDataCar()
-    }
-  }
-
-  const handleDataCar = async ()=> {
-    const useCaseCar = container.get<ListCarsUseCase>(Registry.ListCarUseCase)
-    const cars = await useCaseCar.execute()
-    
-    const carsString = JSON.stringify(cars)
-    const carsObj = JSON.parse(carsString)
-    
-    return setCarList(carsObj)
-  }
-
-  useEffect(()=>{
-    handleDataCar()
-  },[])
+  const {
+    carList,
+    handleDeleteCar,
+    handleOpenCloseModalDelete,
+    loading,
+    push,
+    modalDelete
+  } = useCarList()
   
   return (
     <>
@@ -54,6 +32,9 @@ export const CarList = () =>{
         </div>
         <div className="overflow-auto w-full">
           <ul className="p-4">
+            {
+              loading && <Spinner />
+            }
             {
               carList.length <= 0 && <h1>Não há carros registrados!!</h1>
             }
