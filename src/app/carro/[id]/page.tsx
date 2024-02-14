@@ -3,10 +3,14 @@ import { Registry, container } from "@/@core/infra/container/container-registry.
 import { redirect } from "next/navigation"
 
 async function getCar(id:string) {
-    const useCaseGetCar = container.get<GetCarUseCase>(Registry.GetCarUseCase)
-    const car = await useCaseGetCar.execute(id)
+    try {
+        const useCaseGetCar = container.get<GetCarUseCase>(Registry.GetCarUseCase)
+        const car = await useCaseGetCar.execute(id)
 
-    return car
+        return car
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 export default async function CarDetailPage({ params }: { params: { id: string } }){
@@ -18,9 +22,9 @@ export default async function CarDetailPage({ params }: { params: { id: string }
 
     return(
         <div className="p-6 flex flex-col gap-6">
-            <h1>{car.carProps.brand}</h1>
-            <h2>{car.carProps.model}</h2>
-            <p>{car.carProps.year}</p>
+            <h1>{car?.carProps.brand}</h1>
+            <h2>{car?.carProps.model}</h2>
+            <p>{car?.carProps.year}</p>
         </div>
     )
 }
