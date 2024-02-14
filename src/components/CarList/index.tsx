@@ -45,7 +45,8 @@ export const CarList = () =>{
                   <>
                     <li 
                       key={item.carProps.id} 
-                      >
+                      className="mb-1"
+                    >
                       <div className="flex justify-between gap-6 w-full">
                         <div 
                           className="flex items-center justify-between w-2/4 cursor-pointer"
