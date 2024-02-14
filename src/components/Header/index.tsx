@@ -24,7 +24,7 @@ export const Header = () => {
     return (
         <header className="flex items-center p-6 bg-blue-950">
             <div 
-                className={`flex items-center gap-5 bg-white p-2 rounded-${showText ? 'md' : 'full'}`}
+                className={`flex items-center gap-5 bg-white p-2 rounded-${showText ? 'md' : 'full'} cursor-pointer`}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
