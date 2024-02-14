@@ -15,33 +15,41 @@ export const UseHookFormCar = () =>{
     })
 
     const resolveData = async (car: Car) =>{
-        const AddCarUseCase = container.get<AddCarUseCase>(Registry.AddCarUseCase);
-        const carData = await AddCarUseCase.execute(car)
-        return carData
+        try {
+            const AddCarUseCase = container.get<AddCarUseCase>(Registry.AddCarUseCase);
+            const carData = await AddCarUseCase.execute(car)
+            return carData
+        } catch (error) {
+            console.log(error)
+        }
     }
  
     const onSubmit: SubmitHandler<CarFormType> = async (data) => {
-        const res =  await toast.promise(
-            resolveData(data as Car),
-            {
-                pending: 'Promise is pending',
-                success: 'Promise resolved ',
-                error: 'Promise rejected '
-            },
-            {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+        try {
+            const res =  await toast.promise(
+                resolveData(data as Car),
+                {
+                    pending: 'Promise is pending',
+                    success: 'Promise resolved ',
+                    error: 'Promise rejected '
+                },
+                {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                }
+            )
+    
+            if(res){
+                reset()
             }
-        )
-
-        if(res){
-            reset()
+        } catch (error) {
+            console.error(error)
         }
     }
 
