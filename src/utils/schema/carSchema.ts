@@ -4,6 +4,7 @@ import * as yup from "yup";
 export type CarFormType = CarProps;
 
 export const CarScheme = yup.object().shape({
+  id: yup.string(),
   brand: yup.string().required("A marca do carro é obrigatória."),
   model: yup.string().required("O modelo do carro é obrigatório."),
   year: yup
