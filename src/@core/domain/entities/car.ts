@@ -1,27 +1,26 @@
 export type CarProps = {
-    id?: string
-    brand: string,
-    model: string,
-    year: number
-}
-
+  id?: string;
+  brand: string;
+  model: string;
+  year: number;
+};
 
 export class Car {
-    constructor(public carProps: CarProps) {}
+  constructor(public carProps: CarProps) {}
 
-    get brand(): string{
-        return this.carProps.brand
-    }
+  get brand(): string {
+    return this.carProps.brand;
+  }
 
-    get model(): string{
-        return this.carProps.model
-    }
+  get model(): string {
+    return this.carProps.model;
+  }
 
-    get year(): number {
-        return this.carProps.year
-    }
+  get year(): number {
+    return this.carProps.year;
+  }
 
-    toJson(): string {
-        return JSON.stringify(this.carProps);
-    }
+  toJson(): string {
+    return JSON.stringify(this.carProps);
+  }
 }

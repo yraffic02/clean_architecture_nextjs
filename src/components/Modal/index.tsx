@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export interface ModalProps {
   title: string;
@@ -7,8 +7,8 @@ export interface ModalProps {
   children: ReactNode;
 }
 
- export const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
-  if (!isOpen) return null
+export const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -19,12 +19,14 @@ export interface ModalProps {
             <button
               onClick={onClose}
               className="modal-close absolute top-2 right-2 cursor-pointer text-3xl"
-            >&times;</button>
+            >
+              &times;
+            </button>
             <h2 className="text-xl font-semibold">{title}</h2>
           </div>
           <div className="modal-body">{children}</div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

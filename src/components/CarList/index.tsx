@@ -1,11 +1,11 @@
-'use client'
-import { useCarList } from "@/utils/hooks/useCarList"
-import { Spinner } from "../Spinner"
-import { DeleteModal } from "./components/ModalDelete"
-import { Modal } from "../Modal"
-import { Input } from "../Input"
+"use client";
+import { useCarList } from "@/utils/hooks/useCarList";
+import { Spinner } from "../Spinner";
+import { DeleteModal } from "./components/ModalDelete";
+import { Modal } from "../Modal";
+import { Input } from "../Input";
 
-export const CarList = () =>{
+export const CarList = () => {
   const {
     carList,
     handleOpenCloseModalDelete,
@@ -18,9 +18,9 @@ export const CarList = () =>{
     handleSubmit,
     onSubmit,
     register,
-    errors
-  } = useCarList()
-  
+    errors,
+  } = useCarList();
+
   return (
     <>
       <div className="border-red-700 border-2 w-2/5  h-96 flex flex-col items-start gap-2 rounded-md ">
@@ -33,39 +33,34 @@ export const CarList = () =>{
         </div>
         <div className="overflow-auto w-full">
           <ul className="p-4">
-            {
-              loading && <Spinner />
-            }
-            {
-              carList.length <= 0 && <h1>Não há carros registrados!!</h1>
-            }
-            {
-              carList.length > 0 && carList.map((item, index)=>{
+            {loading && <Spinner />}
+            {carList.length <= 0 && <h1>Não há carros registrados!!</h1>}
+            {carList.length > 0 &&
+              carList.map((item, index) => {
                 return (
                   <>
-                    <li 
-                      key={item.carProps.id} 
-                      className="mb-1"
-                    >
+                    <li key={item.carProps.id} className="mb-1">
                       <div className="flex justify-between gap-6 w-full">
-                        <div 
+                        <div
                           className="flex items-center justify-between w-2/4 cursor-pointer"
-                          onClick={()=> handleRouter(`/carro/${item.carProps.id}`)}
+                          onClick={() =>
+                            handleRouter(`/carro/${item.carProps.id}`)
+                          }
                         >
                           <p className="w-1/3">{item.carProps.brand}</p>
-                          <p className="w-1/3">{item.carProps.model}</p> 
+                          <p className="w-1/3">{item.carProps.model}</p>
                           <p className="w-1/3">{item.carProps.year}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                          <button 
-                            onClick={()=> handleOpenCloseModalEdit(index)}
-                            className="bg-gray-500 text-white p-2 rounded" 
+                          <button
+                            onClick={() => handleOpenCloseModalEdit(index)}
+                            className="bg-gray-500 text-white p-2 rounded"
                           >
                             editar
                           </button>
-                          <button 
-                            onClick={()=> handleOpenCloseModalDelete(index)}
-                            className="bg-red-500 text-white p-2 rounded" 
+                          <button
+                            onClick={() => handleOpenCloseModalDelete(index)}
+                            className="bg-red-500 text-white p-2 rounded"
                           >
                             apagar
                           </button>
@@ -73,63 +68,62 @@ export const CarList = () =>{
                       </div>
                     </li>
 
-                    <DeleteModal 
+                    <DeleteModal
                       handleDeleteCar={handleDeleteCar}
-                      onClose={()=> handleOpenCloseModalDelete(null)}
+                      onClose={() => handleOpenCloseModalDelete(null)}
                       index={index}
                       isOpen={modalDelete}
                       item={item}
                     />
-                  
+
                     <Modal
-                        isOpen={modalEdit == index}
-                        onClose={()=> handleOpenCloseModalEdit(null)}
-                        title="Tem certeza que deseja apagar este carro?"
+                      isOpen={modalEdit == index}
+                      onClose={() => handleOpenCloseModalEdit(null)}
+                      title="Tem certeza que deseja apagar este carro?"
                     >
-                        <form 
-                          onSubmit={handleSubmit(onSubmit)}
-                          className="flex flex-col w-full gap-3"
-                        >
-                          <input 
-                            hidden 
-                            {...register('id')}
-                            defaultValue={item.carProps.id!}
-                          />
-                          <Input 
-                            defaultValue={item.carProps.brand}
-                            {...register('brand')}
-                          />
-                          <Input 
-                            defaultValue={item.carProps.model}
-                            {...register('model')}
-                          />
-                          <Input 
-                            defaultValue={item.carProps.year}
-                            {...register('year')}
-                          />
-                          <div className="flex items-center gap-4">
-                            <button
-                                onClick={()=> handleOpenCloseModalEdit(null)}
-                                className="mt-4 bg-red-500 text-white p-2 rounded"
-                            >
-                                Cancelar
-                            </button>
-                            <button
-                                className="mt-4 bg-green-500 text-white p-2 rounded ml-6"
-                                type="submit"
-                            >
-                                Salvar
-                            </button>
-                          </div>
-                        </form>
+                      <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="flex flex-col w-full gap-3"
+                      >
+                        <input
+                          hidden
+                          {...register("id")}
+                          defaultValue={item.carProps.id!}
+                        />
+                        <Input
+                          defaultValue={item.carProps.brand}
+                          {...register("brand")}
+                        />
+                        <Input
+                          defaultValue={item.carProps.model}
+                          {...register("model")}
+                        />
+                        <Input
+                          defaultValue={item.carProps.year}
+                          {...register("year")}
+                        />
+                        <div className="flex items-center gap-4">
+                          <button
+                            onClick={() => handleOpenCloseModalEdit(null)}
+                            className="mt-4 bg-red-500 text-white p-2 rounded"
+                          >
+                            Cancelar
+                          </button>
+                          <button
+                            className="mt-4 bg-green-500 text-white p-2 rounded ml-6"
+                            type="submit"
+                          >
+                            Salvar
+                          </button>
+                        </div>
+                      </form>
                     </Modal>
                   </>
-                )
-              })
-            }
+                );
+              })}
           </ul>
         </div>
       </div>
     </>
-  )
-}
+  );
+};

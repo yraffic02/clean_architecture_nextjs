@@ -2,14 +2,20 @@ import { Car } from "@/@core/domain/entities/car";
 import { Modal } from "@/components/Modal";
 
 interface IModalDelete {
-    isOpen: number | null,
-    index: number,
-    onClose: () => void,
-    handleDeleteCar: (id: string) => void,
-    item: Car
+  isOpen: number | null;
+  index: number;
+  onClose: () => void;
+  handleDeleteCar: (id: string) => void;
+  item: Car;
 }
 
-export const DeleteModal = ({ isOpen, onClose, handleDeleteCar, item,index }: IModalDelete) => {
+export const DeleteModal = ({
+  isOpen,
+  onClose,
+  handleDeleteCar,
+  item,
+  index,
+}: IModalDelete) => {
   return (
     <Modal
       isOpen={isOpen === index}

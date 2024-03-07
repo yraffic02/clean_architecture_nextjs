@@ -1,0 +1,18 @@
+name: "CI (integração continua): Main workflow"
+
+
+on: 
+  push:
+    branches: ["main"]
+
+jobs:
+  linter:
+    runs-on: ubutun-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run npm install
+        run: npm i
+
+      - name: Run Linter
+        run: npm run lint
