@@ -18,5 +18,8 @@ jobs:
       - name: Run intall playwright
         run:  npx playwright install
 
+      - name: Run app
+        run:  npm run dev
+
       - name: Run test playwright
         run:  npx playwright test
