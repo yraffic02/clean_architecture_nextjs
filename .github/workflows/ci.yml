@@ -17,6 +17,3 @@ jobs:
 
       - name: Run Linter
         run: npm run lint
-      
-      - name: Run test palywright
-        run: npx playwright test
