@@ -11,17 +11,17 @@ export const FormCars = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Label labelHtmlFor="brand">Marca</Label>
-      <Input id="brand" {...register("brand")} />
+      <Input id="brand" placeholder="Marca" {...register("brand")} />
       {errors.brand && (
         <span className="text-red-600 text-xs">{errors.brand?.message}</span>
       )}
       <Label labelHtmlFor="model">Modelo</Label>
-      <Input id="model" {...register("model")} />
+      <Input id="model" placeholder="Modelo" {...register("model")} />
       {errors.brand && (
         <span className="text-red-600 text-xs">{errors.model?.message}</span>
       )}
       <Label labelHtmlFor="year">Ano</Label>
-      <Input id="year" {...register("year")} />
+      <Input id="year" placeholder="Ano" {...register("year")} />
       {errors.year && (
         <span className="text-red-600 text-xs">{errors.year?.message}</span>
       )}
